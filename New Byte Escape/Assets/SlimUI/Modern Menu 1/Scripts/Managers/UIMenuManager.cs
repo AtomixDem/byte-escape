@@ -35,10 +35,8 @@ namespace SlimUI.ModernMenu{
         [Header("PANELS")]
         [Tooltip("The UI Panel parenting all sub menus")]
         public GameObject mainCanvas;
-        [Tooltip("The UI Panel that holds the CONTROLS window tab")]
-        public GameObject PanelControls;
-        [Tooltip("The UI Panel that holds the VIDEO window tab")]
-        public GameObject PanelVideo;
+        
+        
         [Tooltip("The UI Panel that holds the GAME window tab")]
         public GameObject PanelGame;
         [Tooltip("The UI Panel that holds the KEY BINDINGS window tab")]
@@ -59,8 +57,7 @@ namespace SlimUI.ModernMenu{
         public GameObject lineVideo;
         [Tooltip("Highlight Image for when CONTROLS Tab is selected in Settings")]
         public GameObject lineControls;
-        [Tooltip("Highlight Image for when KEY BINDINGS Tab is selected in Settings")]
-        public GameObject lineKeyBindings;
+        
         [Tooltip("Highlight Image for when MOVEMENT Sub-Tab is selected in KEY BINDINGS")]
         public GameObject lineMovement;
         [Tooltip("Highlight Image for when COMBAT Sub-Tab is selected in KEY BINDINGS")]
@@ -162,22 +159,17 @@ namespace SlimUI.ModernMenu{
 		}
 
 		void DisablePanels(){
-			PanelControls.SetActive(false);
-			PanelVideo.SetActive(false);
+			
+			
 			PanelGame.SetActive(false);
 			PanelKeyBindings.SetActive(false);
 
 			lineGame.SetActive(false);
 			lineControls.SetActive(false);
 			lineVideo.SetActive(false);
-			lineKeyBindings.SetActive(false);
+			
 
-			PanelMovement.SetActive(false);
-			lineMovement.SetActive(false);
-			PanelCombat.SetActive(false);
-			lineCombat.SetActive(false);
-			PanelGeneral.SetActive(false);
-			lineGeneral.SetActive(false);
+			
 		}
 
 		public void GamePanel(){
@@ -186,38 +178,23 @@ namespace SlimUI.ModernMenu{
 			lineGame.SetActive(true);
 		}
 
-		public void VideoPanel(){
-			DisablePanels();
-			PanelVideo.SetActive(true);
-			lineVideo.SetActive(true);
-		}
+		
 
 		public void ControlsPanel(){
 			DisablePanels();
-			PanelControls.SetActive(true);
+			
 			lineControls.SetActive(true);
 		}
 
 		public void KeyBindingsPanel(){
 			DisablePanels();
-			MovementPanel();
+			
 			PanelKeyBindings.SetActive(true);
-			lineKeyBindings.SetActive(true);
 		}
 
-		public void MovementPanel(){
-			DisablePanels();
-			PanelKeyBindings.SetActive(true);
-			PanelMovement.SetActive(true);
-			lineMovement.SetActive(true);
-		}
+		
 
-		public void CombatPanel(){
-			DisablePanels();
-			PanelKeyBindings.SetActive(true);
-			PanelCombat.SetActive(true);
-			lineCombat.SetActive(true);
-		}
+		
 
 		public void GeneralPanel(){
 			DisablePanels();
