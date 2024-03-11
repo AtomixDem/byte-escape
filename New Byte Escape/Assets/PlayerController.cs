@@ -4,25 +4,51 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f; // Velocità di movimento del personaggio
-    public Rigidbody2D rb; // Riferimento al componente Rigidbody2D del personaggio
+    public float moveSpeed;
 
-    private Vector2 movement; // Vettore per memorizzare l'input di movimento
+    private bool isMoving;
 
-    void Update()
-    {
-        // Input da tastiera
-        movement.x = Input.GetAxisRaw("Horizontal"); // A e D o frecce sinistra e destra
-        movement.y = Input.GetAxisRaw("Vertical"); // W e S o frecce su e giù
+    private Vector2 input;
 
-        // Normalizza il vettore di movimento per assicurare che il personaggio si muova alla stessa velocità in tutte le direzioni
-        movement.Normalize();
+    private Animator animator;
+    
+    private void Awake() {
+        animator = GetComponent<Animator>();
     }
 
-    void FixedUpdate()
+    private void Update()
     {
-        // Muove il Rigidbody2D del personaggio basandosi sull'input di movimento
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        if (!isMoving)
+        {
+            input.x = Input.GetAxis("Horizontal");
+            input.y = Input.GetAxis("Vertical");
+
+            if (input != Vector2.zero)
+            {
+                animator.SetFloat("moveX", input.x);
+                animator.SetFloat("moveY", input.y);
+
+                var targetPos = transform.position;
+                targetPos.x += input.x;
+                targetPos.y += input.y;
+
+                StartCoroutine(Move(targetPos));
+            }
+        }
+
+        animator.SetBool("isMoving", isMoving);
+    }
+
+    IEnumerator Move(Vector3 targetPos)
+    {
+        isMoving = true;
+        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+        transform.position = targetPos;
+
+        isMoving = false;
     }
 }
-

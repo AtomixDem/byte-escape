@@ -10,7 +10,7 @@ namespace SlimUI.ModernMenu{
 		private Animator CameraObject;
 
 		public void PlayGame() {
-        	SceneManager.LoadScene(1);
+        	SceneManager.LoadScene("Level1");
    		}
 
 		// campaign button sub menu
