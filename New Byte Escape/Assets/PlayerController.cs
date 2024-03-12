@@ -12,10 +12,17 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
+    private Rigidbody2D playerRigidbody;
+
     public LayerMask solidObjectLayer;
+
+    private void Start() {
+        Application.targetFrameRate = 60;
+    }
     
     private void Awake() {
         animator = GetComponent<Animator>();
+        playerRigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -30,13 +37,16 @@ public class PlayerController : MonoBehaviour
                 animator.SetFloat("moveX", input.x);
                 animator.SetFloat("moveY", input.y);
 
-                var targetPos = transform.position;
-                targetPos.x += input.x;
-                targetPos.y += input.y;
+                Vector3 targetPos = transform.position;
+                targetPos.x += input.x * moveSpeed * Time.deltaTime;
+                targetPos.y += input.y * moveSpeed * Time.deltaTime;
 
                 if(IsWalkable(targetPos))
-                    Debug.Log("No collisioni");
+                {
+                    Debug.Log("No collisions");
                     StartCoroutine(Move(targetPos));
+                }
+                    
             }
         }
 
@@ -48,7 +58,7 @@ public class PlayerController : MonoBehaviour
         isMoving = true;
         while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            playerRigidbody.MovePosition(Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime));
             yield return null;
         }
         transform.position = targetPos;
@@ -66,4 +76,3 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 }
-
