@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
                 if(IsWalkable(targetPos))
                 {
-                    Debug.Log("No collisions");
+                    
                     StartCoroutine(Move(targetPos));
                 }
                     
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     private bool IsWalkable(Vector3 targetPos)
     {
-        if(Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectLayer) != null)
+        if(Physics2D.OverlapCircle(targetPos, 0.1f, solidObjectLayer) != null)
         {
             return false;
         }
