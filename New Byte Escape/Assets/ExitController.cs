@@ -1,25 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ExitController : MonoBehaviour
 {
-    // Reference to the game object to be deactivated
-    public GameObject gameObjectToDeactivate;
-
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("IS TOUCHING");
-        // Check if the game object is deactivated and if the collider is the player
-        if (!gameObjectToDeactivate.activeSelf && other.CompareTag("Player"))
+        // Check if the object entering the collider is the player
+        if (other.CompareTag("Player"))
         {
-            // Load the next scene
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            // Load the next scene by incrementing the build index of the current scene
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentSceneIndex + 1);
         }
-    }
-
-    private void Update() {
-        
     }
 }

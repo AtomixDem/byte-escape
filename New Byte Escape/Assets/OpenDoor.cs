@@ -11,7 +11,7 @@ public class OpenDoor : MonoBehaviour
     public UnityEvent interactAction;
 
     private bool isOnCooldown = false; // Flag to track if on cooldown
-    private float cooldownDuration = 1f; // Cooldown duration in seconds
+    private float cooldownDuration = 2f; // Cooldown duration in seconds
     private float cooldownTimer = 0f; // Timer to track cooldown progress
 
     private void ShowInteract()

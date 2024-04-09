@@ -89,7 +89,13 @@ namespace SlimUI.ModernMenu{
 
 			playMenu.SetActive(false);
 			exitMenu.SetActive(false);
-			if(extrasMenu) extrasMenu.SetActive(false);
+			if(extrasMenu){
+				extrasMenu.SetActive(false);
+				Image logoImage = logo.GetComponent<Image>();
+				Color logoColor = logoImage.color;
+				logoColor.a = 1f;
+				logoImage.color = logoColor;
+			} 
 			firstMenu.SetActive(true);
 			mainMenu.SetActive(true);
 
@@ -123,20 +129,39 @@ namespace SlimUI.ModernMenu{
 
 		public void PlayCampaign(){
 			exitMenu.SetActive(false);
-			if(extrasMenu) extrasMenu.SetActive(false);
+			if(extrasMenu){
+				extrasMenu.SetActive(false);
+				Image logoImage = logo.GetComponent<Image>();
+				Color logoColor = logoImage.color;
+				logoColor.a = 1f;
+				logoImage.color = logoColor;
+			} 
+
 			playMenu.SetActive(true);
 		}
 		
 		public void PlayCampaignMobile(){
 			exitMenu.SetActive(false);
-			if(extrasMenu) extrasMenu.SetActive(false);
+			if(extrasMenu){
+				extrasMenu.SetActive(false);
+				Image logoImage = logo.GetComponent<Image>();
+				Color logoColor = logoImage.color;
+				logoColor.a = 1f;
+				logoImage.color = logoColor;
+			} 
 			playMenu.SetActive(true);
 			mainMenu.SetActive(false);
 		}
 
 		public void ReturnMenu(){
 			playMenu.SetActive(false);
-			if(extrasMenu) extrasMenu.SetActive(false);
+			if(extrasMenu){
+				extrasMenu.SetActive(false);
+				Image logoImage = logo.GetComponent<Image>();
+				Color logoColor = logoImage.color;
+				logoColor.a = 1f;
+				logoImage.color = logoColor;
+			} 
 			exitMenu.SetActive(false);
 			mainMenu.SetActive(true);
 		}
@@ -220,43 +245,60 @@ namespace SlimUI.ModernMenu{
 		// Are You Sure - Quit Panel Pop Up
 		public void AreYouSure(){
 			exitMenu.SetActive(true);
-			if(extrasMenu) extrasMenu.SetActive(false);
+			if(extrasMenu){
+				extrasMenu.SetActive(false);
+				Image logoImage = logo.GetComponent<Image>();
+				Color logoColor = logoImage.color;
+				logoColor.a = 1f;
+				logoImage.color = logoColor;
+			} 
 			DisablePlayCampaign();
 		}
 
 		public void AreYouSureMobile(){
 			exitMenu.SetActive(true);
-			if(extrasMenu) extrasMenu.SetActive(false);
+			if(extrasMenu){
+				extrasMenu.SetActive(false);
+				Image logoImage = logo.GetComponent<Image>();
+				Color logoColor = logoImage.color;
+				logoColor.a = 1f;
+				logoImage.color = logoColor;
+			} 
 			mainMenu.SetActive(false);
 			DisablePlayCampaign();
 		}
-
 		public void ExtrasMenu()
-    {
-        playMenu.SetActive(false);
-        if (extrasMenu) extrasMenu.SetActive(true);
-        exitMenu.SetActive(false);
+		{
+			playMenu.SetActive(false);
+			if (extrasMenu) extrasMenu.SetActive(true);
+			exitMenu.SetActive(false);
 
-        // Set logo image alpha to 50 (0.5 transparency)
-        if (logo != null)
-        {
-            Image logoImage = logo.GetComponent<Image>();
-            if (logoImage != null)
-            {
-                Color logoColor = logoImage.color;
-                logoColor.a = 0.25f; // Set alpha value to 50%
-                logoImage.color = logoColor;
-            }
-            else
-            {
-                Debug.LogError("Logo GameObject does not have an Image component.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Logo GameObject is not assigned.");
-        }
-    }
+			// Set logo image alpha to 50 (0.5 transparency) if extrasMenu is true
+			float logoAlpha = extrasMenu ? 0.25f : 1f; // Set alpha to 0.25 if extrasMenu is true, otherwise set to 1
+
+			if (logo != null)
+			{
+				Image logoImage = logo.GetComponent<Image>();
+				if (logoImage != null)
+				{
+					Color logoColor = logoImage.color;
+					logoColor.a = logoAlpha;
+					logoImage.color = logoColor;
+				}
+				else
+				{
+					Debug.LogError("Logo GameObject does not have an Image component.");
+				}
+			}
+			else
+			{
+				Debug.LogError("Logo GameObject is not assigned.");
+			}
+
+			
+		}
+
+
 
 		public void QuitGame(){
 			#if UNITY_EDITOR
