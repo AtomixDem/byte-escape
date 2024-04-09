@@ -13,6 +13,8 @@ namespace SlimUI.ModernMenu{
         	SceneManager.LoadScene("Level1");
    		}
 
+		public GameObject logo;
+
 		// campaign button sub menu
         [Header("MENUS")]
         [Tooltip("The Menu for when the MAIN menu buttons")]
@@ -229,11 +231,32 @@ namespace SlimUI.ModernMenu{
 			DisablePlayCampaign();
 		}
 
-		public void ExtrasMenu(){
-			playMenu.SetActive(false);
-			if(extrasMenu) extrasMenu.SetActive(true);
-			exitMenu.SetActive(false);
-		}
+		public void ExtrasMenu()
+    {
+        playMenu.SetActive(false);
+        if (extrasMenu) extrasMenu.SetActive(true);
+        exitMenu.SetActive(false);
+
+        // Set logo image alpha to 50 (0.5 transparency)
+        if (logo != null)
+        {
+            Image logoImage = logo.GetComponent<Image>();
+            if (logoImage != null)
+            {
+                Color logoColor = logoImage.color;
+                logoColor.a = 0.25f; // Set alpha value to 50%
+                logoImage.color = logoColor;
+            }
+            else
+            {
+                Debug.LogError("Logo GameObject does not have an Image component.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Logo GameObject is not assigned.");
+        }
+    }
 
 		public void QuitGame(){
 			#if UNITY_EDITOR
@@ -255,7 +278,7 @@ namespace SlimUI.ModernMenu{
 				loadingBar.value = progress;
 
 				if (operation.progress >= 0.9f && waitForInput){
-					loadPromptText.text = "Press " + userPromptKey.ToString().ToUpper() + " to continue";
+					loadPromptText.text = "Premi INVIO per continuare";
 					loadingBar.value = 1;
 
 					if (Input.GetKeyDown(userPromptKey)){
