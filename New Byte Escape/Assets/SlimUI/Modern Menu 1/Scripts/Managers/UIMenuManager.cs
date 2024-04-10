@@ -249,7 +249,7 @@ namespace SlimUI.ModernMenu{
 				extrasMenu.SetActive(false);
 				Image logoImage = logo.GetComponent<Image>();
 				Color logoColor = logoImage.color;
-				logoColor.a = 1f;
+				logoColor.a = 0.25f;
 				logoImage.color = logoColor;
 			} 
 			DisablePlayCampaign();
